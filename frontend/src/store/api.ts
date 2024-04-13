@@ -8,8 +8,10 @@ export type User = {
 export type Post = {
   id: number;
   content: string;
-  author_id: number;
+  author_name: string;
   likes_amount: number;
+  created_at: string;
+  is_liked: string;
 };
 
 export type UserCredentials = {
@@ -35,7 +37,7 @@ const Api = createApi({
     }
   }),
 
-  tagTypes: ["Post"],
+  tagTypes: ["Post", "User"],
 
   refetchOnMountOrArgChange: true,
   refetchOnFocus: false,
@@ -49,15 +51,35 @@ const Api = createApi({
           method: "POST",
           body: JSON.stringify(credentials)
         };
-      }
+      },
+      invalidatesTags: ["User"]
     }),
-    getUser: builder.mutation<User, undefined>({
+    getUser: builder.query<User, undefined>({
       query: () => {
         return {
           url: `user/login`,
           method: "GET"
         };
-      }
+      },
+      providesTags: ["User"]
+    }),
+    getUserById: builder.query<User, number>({
+      query: (userId) => {
+        return {
+          url: `user?id=${userId}`,
+          method: "GET"
+        };
+      },
+      providesTags: ["User"]
+    }),
+    getUserByName: builder.query<User, string>({
+      query: (userName) => {
+        return {
+          url: `user?name=${userName}`,
+          method: "GET"
+        };
+      },
+      providesTags: ["User"]
     }),
     registerUser: builder.mutation<User, UserCredentials>({
       query: (credentials) => {
@@ -66,34 +88,49 @@ const Api = createApi({
           method: "POST",
           body: JSON.stringify(credentials)
         };
-      }
+      },
+      invalidatesTags: ["User"]
     }),
-    getPosts: builder.query<Post[], string | undefined>({
-      query: (authorId) => {
-        if (authorId !== undefined) {
-          return { url: `posts?author_id=${authorId}`, method: "GET" };
+    getPosts: builder.query<
+      Post[],
+      { userId: number | undefined; authorName: string | undefined }
+    >({
+      query: ({ authorName, userId }) => {
+        if (authorName !== undefined) {
+          return {
+            url: `posts?author_name=${authorName}&current_user_id=${
+              userId ?? -1
+            }`,
+            method: "GET"
+          };
         }
 
-        return { url: `posts?`, method: "GET" };
-      }
+        return { url: `posts?current_user_id=${userId ?? -1}`, method: "GET" };
+      },
+      providesTags: ["Post"]
     }),
-    createPost: builder.mutation<Post, Omit<Post, "id" | "likes_amount">>({
+    createPost: builder.mutation<
+      Post,
+      Omit<Post, "id" | "likes_amount" | "created_at" | "is_liked">
+    >({
       query: (post) => {
         return {
-          url: `posts/`,
+          url: `posts`,
           method: "POST",
           body: JSON.stringify(post)
         };
-      }
+      },
+      invalidatesTags: ["Post"]
     }),
     toggleLike: builder.mutation<string, { post_id: number }>({
       query: (body) => {
         return {
-          url: `user/register`,
+          url: `posts/like`,
           method: "POST",
           body: JSON.stringify(body)
         };
-      }
+      },
+      invalidatesTags: ["Post"]
     })
   })
 });

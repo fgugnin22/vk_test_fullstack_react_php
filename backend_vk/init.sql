@@ -12,8 +12,9 @@ CREATE TABLE user (
 CREATE TABLE post (
     id INT AUTO_INCREMENT PRIMARY KEY,
     content TEXT,
-    author_id INT,
-    FOREIGN KEY (author_id) REFERENCES user(id)
+    author_name VARCHAR(255) NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (author_name) REFERENCES user(name)
 );
 
 CREATE TABLE reaction (

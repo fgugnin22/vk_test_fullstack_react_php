@@ -6,6 +6,7 @@ require "./controllers/RegisterUser.php";
 require "./controllers/LoginUser.php";
 require "./controllers/Post.php";
 require "./controllers/LikePost.php";
+require "./controllers/GetUser.php";
 
 class Api
 {
@@ -17,6 +18,7 @@ class Api
       '/user/login' => \controllers\LoginUser::class,
       '/posts' => \controllers\Post::class,
       '/posts/like' => \controllers\LikePost::class,
+      '/user' => \controllers\GetUser::class
   ];
 
   public static function init(): void

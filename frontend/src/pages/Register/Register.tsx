@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Api, UserCredentials } from "@/store/api";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-export default function Component() {
+export default function Register() {
   const [registerUser] = Api.useRegisterUserMutation();
 
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ export default function Component() {
 
     registerUser(formState as Required<UserCredentials>)
       .unwrap()
-      .then((user) => navigate("/login"))
+      .then(() => navigate("/login"))
       .catch(() => setError(true));
   };
 
@@ -61,6 +61,12 @@ export default function Component() {
           required
         />
       </div>
+      <Link
+        className="-my-5 text-right hover:underline text-blue-700"
+        to={"/login"}
+      >
+        Уже есть аккаунт?
+      </Link>
       <button className="w-full py-3 bg-gray-900 rounded-lg text-white hover:bg-green-700 transition">
         Зарегистрироваться
       </button>
