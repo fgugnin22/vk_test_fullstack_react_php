@@ -5,7 +5,8 @@ USE task;
 CREATE TABLE user (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL UNIQUE,
-    password_hash VARCHAR(255) NOT NULL
+    password_hash VARCHAR(255) NOT NULL,
+    auth_token VARCHAR(255) NULL
 );
 
 CREATE TABLE post (

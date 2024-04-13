@@ -3,7 +3,9 @@
 
 require "./controllers/Example.php";
 require "./controllers/RegisterUser.php";
-
+require "./controllers/LoginUser.php";
+require "./controllers/Post.php";
+require "./controllers/LikePost.php";
 
 class Api
 {
@@ -12,6 +14,9 @@ class Api
   const routes = [
       '/example' => \controllers\Example::class,
       '/user/register' => \controllers\RegisterUser::class,
+      '/user/login' => \controllers\LoginUser::class,
+      '/posts' => \controllers\Post::class,
+      '/posts/like' => \controllers\LikePost::class,
   ];
 
   public static function init(): void

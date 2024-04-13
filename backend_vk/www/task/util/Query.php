@@ -2,6 +2,8 @@
 
 namespace util;
 
+require './db.php';
+
 class Query
 {
     private $pdo;
