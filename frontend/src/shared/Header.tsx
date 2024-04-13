@@ -17,15 +17,12 @@ const Header = () => {
 
   return (
     <header className="h-[120px] sm:h-[80px] bg-gray-950 flex justify-between items-center px-3 xl:px-10 text-white font-medium">
-      <p className="text-xl xl:text-3xl">ВоВзаимосвязи</p>
-      <div className="mr-auto ml-2 md:ml-8 flex gap-4">
-        <Link to={"/"} className="text-xl hover:underline">
+      <p className="text-xl xl:text-3xl break-all">ВоВзаимосвязи</p>
+      <div className="md:text-xl mr-auto ml-2 md:ml-8 md:gap-4 flex flex-col md:flex-row xl:mt-[6px]">
+        <Link to={"/"} className="hover:underline">
           Главная
         </Link>
-        <Link
-          to={`/user/${user.data?.name}`}
-          className="text-xl hover:underline"
-        >
+        <Link to={`/user/${user.data?.name}`} className="hover:underline">
           Моя страница
         </Link>
       </div>

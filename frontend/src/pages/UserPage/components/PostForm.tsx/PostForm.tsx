@@ -15,6 +15,8 @@ const PostForm = () => {
 
     const content = formData.get("content")?.toString() ?? "";
 
+    form.reset();
+
     createPost({ author_name: authenticatedUser.data?.name ?? "", content });
   };
 

@@ -34,7 +34,7 @@ export default function Login() {
         return getUserData(undefined).unwrap();
       })
       .then((userData) => {
-        navigate(`/user/${userData.id}`);
+        navigate(`/user/${userData.name}`);
       })
       .catch(() => setError(true));
   };
