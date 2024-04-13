@@ -1,17 +1,17 @@
 <?php
 
-namespace src\Api;
 
-use Task\Controllers\Example;
+require "./controllers/Example.php";
+require "./controllers/RegisterUser.php";
 
-require_once "controllers/controllers.php";
 
 class Api
 {
   const base_path = "/api";
 
   const routes = [
-    '/example' => Example::class,
+      '/example' => \controllers\Example::class,
+      '/user/register' => \controllers\RegisterUser::class,
   ];
 
   public static function init(): void

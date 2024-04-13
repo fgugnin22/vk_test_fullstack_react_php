@@ -4,7 +4,13 @@
     "autoload": {
         "psr-4": {
             "Task\\": "src/"
-        }
+        },
+        "files": [
+            "Api.php",
+            "db.php",
+            "util/Query.php",
+            "util/Response.php"
+        ]
     },
     "require": {
         "ext-mysqli": "*"

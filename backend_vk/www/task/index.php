@@ -1,11 +1,8 @@
 <?php
 
-
-use src\Api\Api;
-
-require './src/Api/Api.php';
-
 require './vendor/autoload.php';
+
+require './Api.php';
 
 function cors(): void
 {
@@ -33,10 +30,5 @@ if (mysqli_connect_errno())
     print_r(mysqli_connect_error());
 
 cors();
-
-if ($_SERVER['REQUEST_URI'] === "/") {
-    readfile("./static/index.html");
-}
-
 
 Api::init();
