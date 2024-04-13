@@ -5,3 +5,4 @@ logs
 .composer
 static
 vendor
+package-lock.json
