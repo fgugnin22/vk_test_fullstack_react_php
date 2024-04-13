@@ -12,7 +12,7 @@ export type Post = {
   likes_amount: number;
 };
 
-type UserCredentials = {
+export type UserCredentials = {
   name: string;
   password: string;
 };

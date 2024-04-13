@@ -30,8 +30,12 @@ class Api
 
       $controller = new (self::routes[$path])();
 
-      $response = $controller();
-
+      try {
+          $response = $controller();
+      } catch (\Exception $e) {
+          $response = new \util\Response($e, 500);
+      }
+        
       echo $response->get_body();
     }
   }
