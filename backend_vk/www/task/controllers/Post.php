@@ -130,17 +130,19 @@ class Post
             return new Response(null, 400);
         }
 
-        if ($jsonData['author_name'] !== $user["name"]) {
+        if ($jsonData['author_name'] != $user["name"]) {
             return new Response(null, 401);
         }
 
         $query = new Query();
 
-        $userId = $user['id'];
+        $userName = $user['name'];
 
         $postId = $jsonData['post_id'];
 
-        $query->execute("DELETE FROM post WHERE author_name = $userId AND id = $postId");
+        $query->execute("DELETE FROM reaction WHERE post_id = '$postId'");
+
+        $query->execute("DELETE FROM post WHERE author_name = '$userName' AND id = '$postId'");
 
         return new Response(null, 204);
     }
