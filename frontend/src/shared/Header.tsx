@@ -22,9 +22,11 @@ const Header = () => {
         <Link to={"/"} className="hover:underline">
           Главная
         </Link>
-        <Link to={`/user/${user.data?.name}`} className="hover:underline">
-          Моя страница
-        </Link>
+        {user.data && (
+          <Link to={`/user/${user.data?.name}`} className="hover:underline">
+            Моя страница
+          </Link>
+        )}
       </div>
       {user.data ? (
         <div className="flex flex-col md:flex-row justify-between items-center gap-2 xl:gap-6 text-center">
