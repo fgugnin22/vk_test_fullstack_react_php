@@ -15,7 +15,8 @@ const UserPage = () => {
   const posts = Api.useGetPostsQuery(
     { authorName: pageUser.data?.name, userId: authenticatedUser.data?.id },
     {
-      skip: pageUser.data?.name === undefined || authenticatedUser.isLoading
+      skip: pageUser.data?.name === undefined || authenticatedUser.isLoading,
+      pollingInterval: 1000 * 10
     }
   );
 
@@ -36,7 +37,11 @@ const UserPage = () => {
         </h3>
         <div className="flex flex-col gap-6">
           {posts.data?.map((post) => (
-            <Post key={post.created_at} post={post} />
+            <Post
+              key={post.created_at}
+              post={post}
+              isLoggedIn={authenticatedUser.isSuccess}
+            />
           ))}
         </div>
       </main>

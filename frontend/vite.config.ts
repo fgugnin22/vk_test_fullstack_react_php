@@ -13,6 +13,6 @@ export default defineConfig({
     }
   },
   build: {
-    outDir: "../backend-vk/www/task/static"
+    outDir: "../backend_vk/www/task/static"
   }
 });

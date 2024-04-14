@@ -39,7 +39,7 @@ const Api = createApi({
 
   tagTypes: ["Post", "User"],
 
-  refetchOnMountOrArgChange: true,
+  refetchOnMountOrArgChange: false,
   refetchOnFocus: false,
   refetchOnReconnect: true,
 

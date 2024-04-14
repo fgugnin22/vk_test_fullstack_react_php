@@ -1,15 +1,12 @@
-import { Api, Post } from "@/store/api";
+import { Api, Post as PostType } from "@/store/api";
 import { Link } from "react-router-dom";
 
 type PostComponentProps = {
-  post: Post;
+  post: PostType;
+  isLoggedIn: boolean;
 };
 
-const Post: React.FC<PostComponentProps> = ({ post }) => {
-  const authenticatedUser = Api.useGetUserQuery(undefined, {
-    skip: !localStorage.getItem("token")
-  });
-
+const Post: React.FC<PostComponentProps> = ({ post, isLoggedIn }) => {
   const [likePost] = Api.useToggleLikeMutation();
 
   const postDate = new Date(post.created_at);
@@ -17,7 +14,6 @@ const Post: React.FC<PostComponentProps> = ({ post }) => {
   const handleToggleLikeClick = () => {
     likePost({ post_id: post.id });
   };
-
   return (
     <div className="flex flex-col gap-3 last-of-type:border-none py-3 border-b border-gray-400">
       <p className="text-xl flex items-center">
@@ -32,7 +28,7 @@ const Post: React.FC<PostComponentProps> = ({ post }) => {
               : "hover:enabled:fill-red-500 enabled:fill-black"
           }`}
           onClick={handleToggleLikeClick}
-          disabled={authenticatedUser.data === undefined}
+          disabled={!isLoggedIn}
         >
           <svg
             width="30px"
