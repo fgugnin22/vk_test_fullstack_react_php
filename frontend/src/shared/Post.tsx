@@ -11,6 +11,9 @@ const Post: React.FC<PostComponentProps> = ({ post, isLoggedIn }) => {
 
   const postDate = new Date(post.created_at);
 
+  // это выглядит лениво, но как есть)
+  postDate.setHours(postDate.getHours() + 3);
+
   const handleToggleLikeClick = () => {
     likePost({ post_id: post.id });
   };
@@ -20,7 +23,7 @@ const Post: React.FC<PostComponentProps> = ({ post, isLoggedIn }) => {
         <Link to={`/user/${post.author_name}`} className="mr-2 hover:underline">
           {post.author_name}
         </Link>{" "}
-        в {postDate.toLocaleString()}
+        {postDate.toLocaleString()}
         <button
           className={`ml-auto transition ${
             post.is_liked
