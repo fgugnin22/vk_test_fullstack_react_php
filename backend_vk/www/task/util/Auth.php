@@ -8,11 +8,9 @@ class Auth {
     public function __invoke($token) {
         $query = new Query();
 
-        $user = $query->getOne(
+        return $query->getOne(
             "SELECT * FROM user
                         WHERE auth_token = '$token'"
         );
-
-        return $user;
     }
 }

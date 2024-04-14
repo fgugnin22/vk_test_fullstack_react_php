@@ -130,7 +130,7 @@ class Post
             return new Response(null, 400);
         }
 
-        if ($jsonData['author_name'] != $user["id"]) {
+        if ($jsonData['author_name'] !== $user["name"]) {
             return new Response(null, 401);
         }
 
