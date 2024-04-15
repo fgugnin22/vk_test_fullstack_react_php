@@ -13,12 +13,12 @@ class Api
   const base_path = "/api";
 
   const routes = [
-      '/example' => \controllers\Example::class,
-      '/user/register' => \controllers\RegisterUser::class,
-      '/user/login' => \controllers\LoginUser::class,
-      '/posts' => \controllers\Post::class,
-      '/posts/like' => \controllers\LikePost::class,
-      '/user' => \controllers\GetUser::class
+    '/example' => \controllers\Example::class,
+    '/user/register' => \controllers\RegisterUser::class,
+    '/user/login' => \controllers\LoginUser::class,
+    '/posts' => \controllers\Post::class,
+    '/posts/like' => \controllers\LikePost::class,
+    '/user' => \controllers\GetUser::class
   ];
 
   public static function init(): void
@@ -33,12 +33,13 @@ class Api
       $controller = new (self::routes[$path])();
 
       try {
-          $response = $controller();
+        $response = $controller();
+        echo $response->get_body();
       } catch (\Exception $e) {
-          $response = new \util\Response($e, 500);
+        $response = new \util\Response($e, 500);
+        echo $response->get_body();
       }
-        
-      echo $response->get_body();
+
     }
   }
 }
