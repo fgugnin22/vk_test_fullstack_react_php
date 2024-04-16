@@ -10,13 +10,11 @@ use util\Query;
 
 require_once "./util/Query.php";
 
-use util\Auth;
-
 require_once "./util/Auth.php";
 
 class GetUser
 {
-    public function __invoke()
+    public function __invoke($jsonData)
     {
         if (!isset($_GET['id']) && !isset($_GET['name'])) {
             return new Response(null, 400);

@@ -3,16 +3,21 @@ namespace controllers;
 
 use Exception;
 use util\Response;
+
 require_once "./util/Response.php";
 
 use util\Query;
+
 require_once "./util/Query.php";
 
 use util\Auth;
+
 require_once "./util/Auth.php";
 
-class LikePost {
-    public function __invoke() {
+class LikePost
+{
+    public function __invoke($jsonData)
+    {
         $token = getallheaders()["Authorization"];
 
         $auth = new Auth();
@@ -22,10 +27,6 @@ class LikePost {
         if (!$user) {
             return new Response(null, 401);
         }
-
-        $body = file_get_contents('php://input');
-
-        $jsonData = json_decode($body, true);
 
         if ($jsonData === null) {
             return new Response(null, 400);

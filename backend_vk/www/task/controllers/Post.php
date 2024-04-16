@@ -17,22 +17,18 @@ require_once "./util/Auth.php";
 
 class Post
 {
-    public function __invoke()
+    public function __invoke($jsonData)
     {
         return match ($_SERVER["REQUEST_METHOD"]) {
-            "POST" => self::create(),
+            "POST" => self::create($jsonData),
             "GET" => self::list(),
-            "DELETE" => self::delete(),
+            "DELETE" => self::delete($jsonData),
             default => new Response(null, 400),
         };
     }
 
-    private function create(): Response
+    private function create($jsonData): Response
     {
-        $body = file_get_contents('php://input');
-
-        $jsonData = json_decode($body, true);
-
         if ($jsonData === null) {
             return new Response(null, 400);
         }
@@ -110,7 +106,7 @@ class Post
         return new Response($posts, 200);
     }
 
-    private function delete(): Response
+    private function delete($jsonData): Response
     {
         $token = getallheaders()["Authorization"];
 
@@ -121,10 +117,6 @@ class Post
         if (!$user) {
             return new Response(null, 401);
         }
-
-        $body = file_get_contents('php://input');
-
-        $jsonData = json_decode($body, true);
 
         if ($jsonData === null || !isset($jsonData["post_id"])) {
             return new Response(null, 400);

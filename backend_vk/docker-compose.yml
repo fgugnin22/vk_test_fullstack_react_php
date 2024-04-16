@@ -26,7 +26,7 @@ services:
       - ./www:/var/www
       - ./config/php/php.ini:/usr/local/etc/php/php.ini
     ports:
-      - "9000:9000"
+      - "9000"
     networks:
       - internal
   mysql:
@@ -40,10 +40,10 @@ services:
       - ./mysql:/var/lib/mysql
       - ./init.sql:/data/application/init.sql
     environment:
-      MYSQL_ROOT_USER: 'root'
-      MYSQL_ROOT_PASSWORD: 'secret'
-      MYSQL_DATABASE: 'task'
-      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_USER: "root"
+      MYSQL_ROOT_PASSWORD: "secret"
+      MYSQL_DATABASE: "task"
+      MYSQL_ROOT_HOST: "%"
       MYSQL_PASSWORD: secret
     networks:
       - internal

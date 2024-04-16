@@ -4,20 +4,17 @@ namespace controllers;
 
 use Exception;
 use util\Response;
+
 require_once "./util/Response.php";
 
 use util\Query;
+
 require_once "./util/Query.php";
 
 class RegisterUser
 {
-    public function __invoke(): Response
+    public function __invoke($jsonData): Response
     {
-
-        $body = file_get_contents('php://input');
-
-        $jsonData = json_decode($body, true);
-
         if ($jsonData === null) {
             return new Response(null, 400);
         }
@@ -38,8 +35,7 @@ class RegisterUser
             $new_user = $query->getOne("SELECT id, name FROM user WHERE id = '$id'");
 
             return new Response($new_user, 200);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return new Response($e, 500);
         }
 

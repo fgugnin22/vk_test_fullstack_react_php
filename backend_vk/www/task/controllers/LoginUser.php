@@ -4,31 +4,31 @@ namespace controllers;
 
 use Exception;
 use util\Response;
+
 require_once "./util/Response.php";
 
 use util\Query;
+
 require_once "./util/Query.php";
 
 use util\Auth;
+
 require_once "./util/Auth.php";
 
 
-class LoginUser {
-    public function __invoke(): Response
+class LoginUser
+{
+    public function __invoke($jsonData): Response
     {
         return match ($_SERVER["REQUEST_METHOD"]) {
-            "POST" => self::post(),
+            "POST" => self::post($jsonData),
             "GET" => self::get(),
             default => new Response(null, 400),
         };
     }
 
-    private function post(): Response
+    private function post($jsonData): Response
     {
-        $body = file_get_contents('php://input');
-
-        $jsonData = json_decode($body, true);
-
         if ($jsonData === null) {
             return new Response(null, 400);
         }
@@ -50,7 +50,7 @@ class LoginUser {
 
             $query->execute("UPDATE user SET auth_token = '$auth_token' WHERE name = '$username'");
 
-            return new Response(["auth_token"=>$auth_token], 200);
+            return new Response(["auth_token" => $auth_token], 200);
         } else {
             return new Response(null, 401);
         }

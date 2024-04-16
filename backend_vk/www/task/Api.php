@@ -32,11 +32,17 @@ class Api
 
       $controller = new (self::routes[$path])();
 
+      $body = file_get_contents('php://input');
+
+      $jsonData = json_decode($body, true);
+
       try {
-        $response = $controller();
+        $response = $controller($jsonData);
+
         echo $response->get_body();
       } catch (\Exception $e) {
         $response = new \util\Response($e, 500);
+
         echo $response->get_body();
       }
 
